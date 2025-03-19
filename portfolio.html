@@ -1,0 +1,698 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devotion Chikutuva | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D5CDE',
+                        secondary: '#4B4AD8',
+                        dark: {
+                            100: '#333333',
+                            200: '#222222',
+                            300: '#181818',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        fadeIn: 'fadeIn 0.5s ease-in-out',
+                        slideIn: 'slideIn 0.5s ease-in-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .timeline-item {
+            position: relative;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background-color: #e5e7eb;
+            left: 9px;
+            top: 0;
+        }
+        
+        .dark .timeline-item::before {
+            background-color: #4B4AD8;
+        }
+        
+        .timeline-circle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #5D5CDE;
+            left: 0;
+            top: 0;
+        }
+        
+        .skill-progress {
+            transition: width 1s ease-in-out;
+        }
+        
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(93, 92, 222, 0.1), 0 10px 10px -5px rgba(93, 92, 222, 0.04);
+        }
+        
+        .dark .project-card:hover {
+            box-shadow: 0 10px 25px -5px rgba(93, 92, 222, 0.2), 0 10px 10px -5px rgba(93, 92, 222, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .timeline-item::before {
+                left: 9px;
+            }
+            .timeline-circle {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 dark:text-gray-200 bg-white dark:bg-dark-300 transition-colors duration-200">
+    <!-- Toggle Dark Mode -->
+    <button id="darkModeToggle" class="fixed z-50 bottom-4 right-4 p-2 rounded-full bg-gray-200 dark:bg-dark-100 text-gray-800 dark:text-gray-200 shadow-lg">
+        <i class="fas fa-moon dark:hidden"></i>
+        <i class="fas fa-sun hidden dark:block"></i>
+    </button>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="sticky top-0 z-40 bg-white dark:bg-dark-300 shadow-md transition-all duration-200">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <a href="#home" class="text-2xl font-bold text-primary">DC</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary">Home</a>
+                    <a href="#about" class="nav-link text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary">About</a>
+                    <a href="#experience" class="nav-link text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary">Experience</a>
+                    <a href="#skills" class="nav-link text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary">Skills</a>
+                    <a href="#projects" class="nav-link text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary">Projects</a>
+                    <a href="#contact" class="nav-link text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary">Contact</a>
+                </div>
+                <button id="mobileMenuButton" class="md:hidden text-gray-600 dark:text-gray-300 focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="md:hidden hidden bg-white dark:bg-dark-200 shadow-lg transition-all duration-300 ease-in-out">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="#home" class="mobile-nav-link py-2 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary">Home</a>
+                <a href="#about" class="mobile-nav-link py-2 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary">About</a>
+                <a href="#experience" class="mobile-nav-link py-2 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary">Experience</a>
+                <a href="#skills" class="mobile-nav-link py-2 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary">Skills</a>
+                <a href="#projects" class="mobile-nav-link py-2 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary">Projects</a>
+                <a href="#contact" class="mobile-nav-link py-2 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="py-20 md:py-28 bg-gradient-to-b from-gray-50 to-white dark:from-dark-200 dark:to-dark-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 animate-slideIn">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+                        Hi, I'm <span class="text-primary">Devotion Chikutuva</span>
+                    </h1>
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-semibold text-gray-600 dark:text-gray-300 mb-6">
+                        STEM Entrepreneur &amp; Electronic Engineer
+                    </h2>
+                    <p class="text-lg text-gray-700 dark:text-gray-400 mb-8 max-w-xl">
+                        Passionate about developing technology-driven solutions to enhance operational efficiency and drive business growth.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#contact" class="px-6 py-3 bg-primary hover:bg-secondary text-white rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl">
+                            Contact Me
+                        </a>
+                        <a href="#projects" class="px-6 py-3 bg-white dark:bg-dark-100 text-primary border border-primary rounded-lg transition-colors duration-300 hover:bg-gray-50 dark:hover:bg-dark-200">
+                            View Projects
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 mt-12 md:mt-0 animate-fadeIn flex justify-center md:justify-end">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden bg-gradient-to-tr from-primary to-blue-500 flex items-center justify-center shadow-xl">
+                        <i class="fas fa-user-tie text-6xl text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white dark:bg-dark-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-16">About Me</h2>
+            <div class="flex flex-col lg:flex-row gap-16">
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-6 text-primary">My Background</h3>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6">
+                        I am currently pursuing a Master's degree in STEM Entrepreneurship and Innovation at the University of Notre Dame. With a background in Electronic Engineering and over two years of hands-on experience in IoT, automation, and control systems, I have developed a strong foundation in creating technology-driven solutions.
+                    </p>
+                    <p class="text-gray-700 dark:text-gray-300 mb-8">
+                        My passion lies in leveraging technology to solve real-world problems, enhance operational efficiency, and drive business growth. Throughout my career, I have worked on various projects across industries such as IoT, robotics education, and software development.
+                    </p>
+                    <div class="flex space-x-4 mb-8">
+                        <a href="mailto:devotion.chikutuva@gmail.com" class="text-primary hover:text-secondary text-2xl">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-secondary text-2xl">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="tel:+15743973053" class="text-primary hover:text-secondary text-2xl">
+                            <i class="fas fa-phone"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-6 text-primary">Education</h3>
+                    <div class="mb-8">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="text-xl font-medium">University of Notre Dame</h4>
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Expected May 2025</span>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300">Master of Science in Engineering, Science, &amp; Technology Entrepreneurship (ESTEEM)</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mt-1">Notre Dame, IN</p>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="text-xl font-medium">National University of Science and Technology</h4>
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Nov 2022</span>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300">Bachelor of Engineering in Electronic Engineering</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mt-1">Zimbabwe</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-gray-50 dark:bg-dark-200">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-16">Professional Experience</h2>
+            <div class="max-w-3xl mx-auto">
+                <!-- Experience Timeline -->
+                <div class="space-y-12">
+                    <!-- Graduate Student Consultant -->
+                    <div class="timeline-item pl-10">
+                        <div class="timeline-circle"></div>
+                        <div class="mb-2 flex flex-col sm:flex-row sm:items-center justify-between">
+                            <h3 class="text-xl font-semibold text-primary">Graduate Student Consultant</h3>
+                            <span class="text-gray-600 dark:text-gray-400 text-sm">Jun 2024 - Present</span>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300 font-medium mb-2">7DVita, IN (Remote)</p>
+                        <ul class="list-disc text-gray-600 dark:text-gray-400 pl-5 space-y-1">
+                            <li>Developed commercial plans to integrate robotics and hands-on learning into K-12 education</li>
+                            <li>Refined business model elements to improve accessibility of hands-on learning for underrepresented schools</li>
+                            <li>Conducted 50+ interviews with industry professionals and key stakeholders</li>
+                            <li>Streamlined educational kits and activities using Lean thinking</li>
+                        </ul>
+                    </div>
+
+                    <!-- Lecturer -->
+                    <div class="timeline-item pl-10">
+                        <div class="timeline-circle"></div>
+                        <div class="mb-2 flex flex-col sm:flex-row sm:items-center justify-between">
+                            <h3 class="text-xl font-semibold text-primary">Lecturer</h3>
+                            <span class="text-gray-600 dark:text-gray-400 text-sm">Mar 2024 - Jun 2024</span>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300 font-medium mb-2">TelOne Center for Learning Telecommunications Training Institution, Zimbabwe</p>
+                        <ul class="list-disc text-gray-600 dark:text-gray-400 pl-5 space-y-1">
+                            <li>Delivered lectures on Electrical Engineering with a strong hands-on, project-based approach</li>
+                            <li>Conducted lab sessions in Electrical Circuit Analysis</li>
+                            <li>Introduced core product development cycles such as prototyping and test plans</li>
+                        </ul>
+                    </div>
+
+                    <!-- Junior Electronic Engineer -->
+                    <div class="timeline-item pl-10">
+                        <div class="timeline-circle"></div>
+                        <div class="mb-2 flex flex-col sm:flex-row sm:items-center justify-between">
+                            <h3 class="text-xl font-semibold text-primary">Junior Electronic Engineer</h3>
+                            <span class="text-gray-600 dark:text-gray-400 text-sm">Nov 2021 - Nov 2023</span>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300 font-medium mb-2">Innotech Africa, Zimbabwe</p>
+                        <ul class="list-disc text-gray-600 dark:text-gray-400 pl-5 space-y-1">
+                            <li>Led the design and implementation of an IoT-based control and automation system for a client in the agriculture industry</li>
+                            <li>Tracked key parameters and developed an intuitive real-time dashboard</li>
+                            <li>Designed and integrated a fingerprint access control system</li>
+                            <li>Authored key engineering documents to ensure compliance with industry standards</li>
+                            <li>Built back-end architectures using Django, OAuth, and REST APIs</li>
+                        </ul>
+                    </div>
+
+                    <!-- CoFounder and Robotics Mentor -->
+                    <div class="timeline-item pl-10">
+                        <div class="timeline-circle"></div>
+                        <div class="mb-2 flex flex-col sm:flex-row sm:items-center justify-between">
+                            <h3 class="text-xl font-semibold text-primary">CoFounder and Robotics Mentor</h3>
+                            <span class="text-gray-600 dark:text-gray-400 text-sm">Aug 2022 - Jun 2024</span>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300 font-medium mb-2">Proxima Genaracions, Zimbabwe</p>
+                        <ul class="list-disc text-gray-600 dark:text-gray-400 pl-5 space-y-1">
+                            <li>Founded robotics clubs at two underrepresented high schools, mentoring 76 students</li>
+                            <li>Created structured documentation including curriculum plans and project guidelines</li>
+                            <li>Developed and managed a hardware inventory system</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-white dark:bg-dark-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-16">Skills &amp; Expertise</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Technical Skills -->
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-primary">Technical Skills</h3>
+                    
+                    <!-- Programming Languages -->
+                    <div class="mb-8">
+                        <h4 class="text-lg font-medium mb-4">Programming Languages</h4>
+                        <div class="space-y-4">
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20">C/C++</span>
+                                <span class="px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20">Python</span>
+                                <span class="px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20">SQL</span>
+                                <span class="px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20">Django</span>
+                                <span class="px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20">Ladder Logic (OpenPLC)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Automation & Control Systems -->
+                    <div class="mb-8">
+                        <h4 class="text-lg font-medium mb-4">Automation &amp; Control Systems</h4>
+                        <div class="space-y-4">
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20">PLC Programming</span>
+                                <span class="px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20">Raspberry Pi</span>
+                                <span class="px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20">Industrial Automation</span>
+                                <span class="px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20">IoT Solutions</span>
+                                <span class="px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20">Machine Vision</span>
+                                <span class="px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20">Sensor Integration</span>
+                                <span class="px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20">Real-time Data Acquisition</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Software & Tools -->
+                    <div>
+                        <h4 class="text-lg font-medium mb-4">Software &amp; Tools</h4>
+                        <div class="space-y-4">
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20">SolidWorks (CSWA)</span>
+                                <span class="px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20">Microsoft Office Suite</span>
+                                <span class="px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20">Excel</span>
+                                <span class="px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20">UNIX/Linux</span>
+                                <span class="px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20">Git</span>
+                                <span class="px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20">API Integration</span>
+                                <span class="px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-primary/20">Database Management</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Soft Skills & Strengths -->
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-primary">Soft Skills &amp; Strengths</h3>
+                    
+                    <!-- Organizational & Soft Skills -->
+                    <div class="mb-8">
+                        <h4 class="text-lg font-medium mb-4">Organizational &amp; Soft Skills</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-lg bg-gray-50 dark:bg-dark-100">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-comments text-primary mr-3"></i>
+                                    <h5 class="font-medium">Communication</h5>
+                                </div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Effective communicator with experience presenting technical concepts to diverse audiences</p>
+                            </div>
+                            <div class="p-4 rounded-lg bg-gray-50 dark:bg-dark-100">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-users text-primary mr-3"></i>
+                                    <h5 class="font-medium">Teamwork</h5>
+                                </div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Collaborative team player with experience in cross-functional projects</p>
+                            </div>
+                            <div class="p-4 rounded-lg bg-gray-50 dark:bg-dark-100">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-puzzle-piece text-primary mr-3"></i>
+                                    <h5 class="font-medium">Problem Solving</h5>
+                                </div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Analytical thinker with a strong ability to solve complex technical problems</p>
+                            </div>
+                            <div class="p-4 rounded-lg bg-gray-50 dark:bg-dark-100">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-shield-alt text-primary mr-3"></i>
+                                    <h5 class="font-medium">Product Safety</h5>
+                                </div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Dedicated to ensuring product safety and compliance with industry standards</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Core Strengths -->
+                    <div>
+                        <h4 class="text-lg font-medium mb-4">Core Strengths</h4>
+                        <div class="space-y-4">
+                            <div class="relative pt-1">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-gray-700 dark:text-gray-300">IoT System Design</span>
+                                    <span class="text-primary font-semibold">95%</span>
+                                </div>
+                                <div class="overflow-hidden h-2 text-xs flex rounded bg-gray-200 dark:bg-dark-100">
+                                    <div class="skill-progress bg-primary h-full rounded" style="width: 95%"></div>
+                                </div>
+                            </div>
+                            <div class="relative pt-1">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-gray-700 dark:text-gray-300">Automation &amp; Control</span>
+                                    <span class="text-primary font-semibold">90%</span>
+                                </div>
+                                <div class="overflow-hidden h-2 text-xs flex rounded bg-gray-200 dark:bg-dark-100">
+                                    <div class="skill-progress bg-primary h-full rounded" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="relative pt-1">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-gray-700 dark:text-gray-300">Robotics Education</span>
+                                    <span class="text-primary font-semibold">85%</span>
+                                </div>
+                                <div class="overflow-hidden h-2 text-xs flex rounded bg-gray-200 dark:bg-dark-100">
+                                    <div class="skill-progress bg-primary h-full rounded" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="relative pt-1">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-gray-700 dark:text-gray-300">Product Development</span>
+                                    <span class="text-primary font-semibold">88%</span>
+                                </div>
+                                <div class="overflow-hidden h-2 text-xs flex rounded bg-gray-200 dark:bg-dark-100">
+                                    <div class="skill-progress bg-primary h-full rounded" style="width: 88%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-gray-50 dark:bg-dark-200">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-16">Featured Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card bg-white dark:bg-dark-100 rounded-xl overflow-hidden shadow-md">
+                    <div class="h-48 overflow-hidden bg-primary/10 flex items-center justify-center">
+                        <i class="fas fa-microchip text-6xl text-primary/50"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800 dark:text-gray-200">IoT-Based Agricultural Automation System</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            Designed and implemented an IoT control system for agriculture, automating monitoring processes and ensuring network security at the Edge.
+                        </p>
+                        <div class="flex flex-wrap text-sm gap-2 mb-4">
+                            <span class="px-2 py-1 rounded bg-gray-100 dark:bg-dark-200 text-gray-600 dark:text-gray-400">IoT</span>
+                            <span class="px-2 py-1 rounded bg-gray-100 dark:bg-dark-200 text-gray-600 dark:text-gray-400">Python</span>
+                            <span class="px-2 py-1 rounded bg-gray-100 dark:bg-dark-200 text-gray-600 dark:text-gray-400">Edge Computing</span>
+                        </div>
+                        <div class="mt-2">
+                            <button class="text-primary hover:text-secondary font-medium flex items-center">
+                                <span>Project Details</span>
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card bg-white dark:bg-dark-100 rounded-xl overflow-hidden shadow-md">
+                    <div class="h-48 overflow-hidden bg-primary/10 flex items-center justify-center">
+                        <i class="fas fa-fingerprint text-6xl text-primary/50"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800 dark:text-gray-200">Fingerprint Access Control System</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            Designed and integrated a fingerprint access control system that reduced inventory management time by 20% while maintaining safety standards.
+                        </p>
+                        <div class="flex flex-wrap text-sm gap-2 mb-4">
+                            <span class="px-2 py-1 rounded bg-gray-100 dark:bg-dark-200 text-gray-600 dark:text-gray-400">Security</span>
+                            <span class="px-2 py-1 rounded bg-gray-100 dark:bg-dark-200 text-gray-600 dark:text-gray-400">Embedded Systems</span>
+                            <span class="px-2 py-1 rounded bg-gray-100 dark:bg-dark-200 text-gray-600 dark:text-gray-400">C++</span>
+                        </div>
+                        <div class="mt-2">
+                            <button class="text-primary hover:text-secondary font-medium flex items-center">
+                                <span>Project Details</span>
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card bg-white dark:bg-dark-100 rounded-xl overflow-hidden shadow-md">
+                    <div class="h-48 overflow-hidden bg-primary/10 flex items-center justify-center">
+                        <i class="fas fa-robot text-6xl text-primary/50"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800 dark:text-gray-200">Robotics Education Program</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            Developed a comprehensive robotics education program for high school students, including curriculum, project guidelines, and hardware management system.
+                        </p>
+                        <div class="flex flex-wrap text-sm gap-2 mb-4">
+                            <span class="px-2 py-1 rounded bg-gray-100 dark:bg-dark-200 text-gray-600 dark:text-gray-400">Education</span>
+                            <span class="px-2 py-1 rounded bg-gray-100 dark:bg-dark-200 text-gray-600 dark:text-gray-400">Robotics</span>
+                            <span class="px-2 py-1 rounded bg-gray-100 dark:bg-dark-200 text-gray-600 dark:text-gray-400">Arduino</span>
+                        </div>
+                        <div class="mt-2">
+                            <button class="text-primary hover:text-secondary font-medium flex items-center">
+                                <span>Project Details</span>
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white dark:bg-dark-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-16">Get In Touch</h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-6 text-primary">Contact Information</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="bg-primary/10 rounded-full p-3 mr-4">
+                                    <i class="fas fa-envelope text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Email</h4>
+                                    <a href="mailto:devotion.chikutuva@gmail.com" class="text-gray-600 dark:text-gray-400 hover:text-primary">devotion.chikutuva@gmail.com</a>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-primary/10 rounded-full p-3 mr-4">
+                                    <i class="fas fa-phone text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Phone</h4>
+                                    <a href="tel:+15743973053" class="text-gray-600 dark:text-gray-400 hover:text-primary">(574) 397-3053</a>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-primary/10 rounded-full p-3 mr-4">
+                                    <i class="fas fa-map-marker-alt text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Location</h4>
+                                    <p class="text-gray-600 dark:text-gray-400">South Bend, IN</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-primary/10 rounded-full p-3 mr-4">
+                                    <i class="fab fa-linkedin text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">LinkedIn</h4>
+                                    <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer" class="text-gray-600 dark:text-gray-400 hover:text-primary">Connect on LinkedIn</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-6 text-primary">Send a Message</h3>
+                        <form id="contactForm" class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name</label>
+                                <input type="text" id="name" name="name" class="w-full px-4 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-dark-100 dark:text-gray-200" required="">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-dark-100 dark:text-gray-200" required="">
+                            </div>
+                            <div>
+                                <label for="subject" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Subject</label>
+                                <input type="text" id="subject" name="subject" class="w-full px-4 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-dark-100 dark:text-gray-200" required="">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Message</label>
+                                <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-dark-100 dark:text-gray-200" required=""></textarea>
+                            </div>
+                            <button type="submit" class="w-full py-3 px-6 bg-primary hover:bg-secondary text-white font-medium rounded-lg transition-colors duration-300 shadow-md hover:shadow-lg">
+                                Send Message
+                            </button>
+                        </form>
+                        <div id="formStatus" class="mt-4 hidden">
+                            <p class="text-green-600 dark:text-green-400 text-center">Your message has been sent successfully!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-gray-100 dark:bg-dark-200">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-gray-600 dark:text-gray-400">© 2024 Devotion Chikutuva. All rights reserved.</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="mailto:devotion.chikutuva@gmail.com" class="text-gray-600 dark:text-gray-400 hover:text-primary">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer" class="text-gray-600 dark:text-gray-400 hover:text-primary">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="tel:+15743973053" class="text-gray-600 dark:text-gray-400 hover:text-primary">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dark Mode Toggle
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+        
+        document.getElementById('darkModeToggle').addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+        });
+        
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close Mobile Menu on Link Click
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-white/90', 'dark:bg-dark-300/90', 'backdrop-blur-sm');
+            } else {
+                navbar.classList.remove('bg-white/90', 'dark:bg-dark-300/90', 'backdrop-blur-sm');
+            }
+        });
+        
+        // Animate Skills on Scroll
+        function animateSkills() {
+            const skills = document.querySelectorAll('.skill-progress');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.width = entry.target.style.width || '0%';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            skills.forEach(skill => {
+                observer.observe(skill);
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', animateSkills);
+        
+        // Handle Contact Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // In a real scenario, you would send the form data to a server
+            // For demo purposes, we'll just show a success message
+            
+            document.getElementById('formStatus').classList.remove('hidden');
+            this.reset();
+            
+            // Hide the success message after 5 seconds
+            setTimeout(() => {
+                document.getElementById('formStatus').classList.add('hidden');
+            }, 5000);
+        });
+    </script>
+
+</body></html>
